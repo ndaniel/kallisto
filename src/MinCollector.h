@@ -43,6 +43,8 @@ struct MinCollector {
         if (v[i] != v[i-1]) {
           std::cout << "(" << v[i-1] << "," << c << "),";
           c = 1;
+        } else {
+          c++;
         }
       }
       std::cout << "(" << v[v.size()-1] <<"," << c << ")\n";
