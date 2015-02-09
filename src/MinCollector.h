@@ -38,20 +38,42 @@ struct MinCollector {
     }
     // if u is empty do nothing
     if (u.empty()) {
+      int m1=1,m2=1;
       int c = 1;
       for (int i = 1; i < v.size(); i++) {
         if (v[i] != v[i-1]) {
-          std::cout << "(" << v[i-1] << "," << c << "),";
           c = 1;
         } else {
           c++;
+          if (c > m2) {
+            if (c < m1) {
+              m2 = c;
+            } else {
+              m1 = c;
+            }
+          }
         }
       }
-      std::cout << "(" << v[v.size()-1] <<"," << c << ")\n";
-      std::cout << "@" << s1->name.s << "\n" << s1->seq.s << "\n+\n" << s1->qual.s << "\n";
-      if (paired) {
-        std::cout << "@" << s2->name.s << "\n" << s2->seq.s << "\n+\n" << s2->qual.s << "\n";
+
+      // only output if two classes have more then 1 kmer supporting
+      if (m1 > 1 && m2 > 1) {
+        c = 1;
+        for (int i = 1; i < v.size(); i++) {
+          if (v[i] != v[i-1]) {
+            std::cout << "(" << v[i-1] << "," << c << "),";
+            c = 1;
+          } else {
+            c++;
+          }
+        }
+        
+        std::cout << "(" << v[v.size()-1] <<"," << c << ")\n";
+        std::cout << "@" << s1->name.s << "\n" << s1->seq.s << "\n+\n" << s1->qual.s << "\n";
+        if (paired) {
+          std::cout << "@" << s2->name.s << "\n" << s2->seq.s << "\n+\n" << s2->qual.s << "\n";
+        }
       }
+    
 
       return;
     }
