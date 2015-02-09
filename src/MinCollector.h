@@ -17,7 +17,8 @@ struct MinCollector {
 
 
 
-  void collect(std::vector<int>& v) {
+
+  void collect(std::vector<int>& v, kseq_t *s1, kseq_t *s2, bool paired) {
     if (v.empty()) {
       return;
     }
@@ -37,6 +38,19 @@ struct MinCollector {
     }
     // if u is empty do nothing
     if (u.empty()) {
+      int c = 1;
+      for (int i = 1; i < v.size(); i++) {
+        if (v[i] != v[i-1]) {
+          std::cout << "(" << v[i-1] << "," << c << "),";
+          c = 1;
+        }
+      }
+      std::cout << "(" << v[v.size()-1] <<"," << c << ")\n";
+      std::cout << "@" << s1->name.s << "\n" << s1->seq.s << "\n+\n" << s1->qual.s << "\n";
+      if (paired) {
+        std::cout << "@" << s2->name.s << "\n" << s2->seq.s << "\n+\n" << s2->qual.s << "\n";
+      }
+
       return;
     }
 

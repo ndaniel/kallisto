@@ -62,7 +62,7 @@ TranscriptCollector ProcessReads(Index& index, const ProgramOptions& opt) {
     }
 
     // collect the transcript information
-    tc.collect(v);
+    tc.collect(v, seq1, seq2, paired);
     if (opt.verbose && nreads % 10000 == 0 ) {
       std::cerr << "Processed " << nreads << std::endl;
     }
