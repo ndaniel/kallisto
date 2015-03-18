@@ -7,7 +7,7 @@ EMAlgorithm Bootstrap::run_em() {
     auto weights = calc_weights(counts, ecmap_, eff_lens_);
     EMAlgorithm em(ecmap_, counts, target_names_, eff_lens_, weights);
 
-    em.run();
+    em.run("blah");
     em.compute_rho();
 
     return em;

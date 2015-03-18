@@ -598,7 +598,7 @@ int main(int argc, char *argv[]) {
         auto weights = calc_weights (collection.counts, index.ecmap, eff_lens);
         EMAlgorithm em(index.ecmap, collection.counts, index.target_names_,
                 eff_lens, weights);
-        em.run();
+        em.run(opt.output, opt.iterations);
         em.compute_rho();
         em.write(opt.output + "/expression.txt");
 
@@ -636,6 +636,7 @@ int main(int argc, char *argv[]) {
       } else {
         write_version(opt.output + "/kallisto_version.txt");
         // run the em algorithm
+        std::cerr << "got this far!!" << std::endl;
         KmerIndex index(opt);
         index.load(opt, false); // skip the k-mer map
         MinCollector collection(index, opt);
@@ -647,7 +648,7 @@ int main(int argc, char *argv[]) {
         auto weights = calc_weights (collection.counts, index.ecmap, eff_lens);
         EMAlgorithm em(index.ecmap, collection.counts, index.target_names_,
                 eff_lens, weights);
-        em.run();
+        em.run(opt.output, opt.iterations);
         em.compute_rho();
         em.write(opt.output + "/expression.txt");
 
