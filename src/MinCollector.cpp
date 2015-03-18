@@ -33,8 +33,21 @@ int MinCollector::collect(std::vector<std::pair<int,int>>& v1,
   
   std::vector<int> u1 = intersectECs(v1);
   std::vector<int> u2 = intersectECs(v2);
-  
-  std::vector<int> u = intersect(u1,u2);
+
+  std::vector<int> u;
+
+  if (u1.empty() && u2.empty()) {
+    return -1;
+  }
+
+  // non-strict intersection.
+  if (u1.empty()) {
+    u = u2;
+  } else if (u2.empty()) {
+    u = u1;
+  } else {
+    u = intersect(u1,u2);
+  }
 
   if (u.empty()) {
     return -1;
@@ -70,32 +83,43 @@ std::vector<int> MinCollector::intersectECs(std::vector<std::pair<int,int>>& v) 
   }
   sort(v.begin(), v.end()); // sort by ec, and then first position
 
+  /*
   std::vector<std::pair<int,int>> vp;
   vp.push_back(v[0]);
   for (int i = 1; i < v.size(); i++) {
     if (v[i].first != v[i-1].first) {
       vp.push_back(v[i-1]);
     }
-  }
+    }
 
-  sort(vp.begin(), vp.end(), ComparePairsBySecond{}); 
+  sort(vp.begin(), vp.end(), ComparePairsBySecond{});
+  */
 
   int count = 1; // how many k-mer support the ec
-  std::vector<int> u = index.ecmap[vp[0].first];
-  std::vector<int> tmp;
-  
-  for (auto &x : vp) {
-    tmp = index.intersect(x.first,u);
-    if (!tmp.empty()) {
-      u = tmp;
-      count++; // increase the count
+  std::vector<int> u = index.ecmap[v[0].first];
+
+  for (int i = 1; i < v.size(); i++) {
+    if (v[i].first != v[i-1].first) {
+      u = index.intersect(v[i].first, u);
+      if (u.empty()) {
+        return u;
+      }
     }
   }
+  
+  /*for (auto &x : vp) {
+    //tmp = index.intersect(x.first,u);
+    u = index.intersect(x.first,u);
+    //if (!tmp.empty()) {
+     // u = tmp;
+      //count++; // increase the count
+     // }
+  }*/
 
   // if u is empty do nothing
-  if (u.empty()) {
+  /*if (u.empty()) {
     return u;
-  }
+    }*/
 
   // find the range of support
   int minpos = std::numeric_limits<int>::max();
