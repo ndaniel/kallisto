@@ -23,7 +23,7 @@ struct EMAlgorithm {
   // target_names is the target_names_ from collector
   // TODO: initialize alpha a bit more intelligently
   EMAlgorithm(const EcMap& ecmap,
-              const std::vector<int>& counts,
+              const std::vector<double>& counts,
               const std::vector<std::string>& target_names,
               const std::vector<double>& eff_lens,
               const WeightMap& wm) :
@@ -222,7 +222,7 @@ struct EMAlgorithm {
 
   int num_trans_;
   const EcMap& ecmap_;
-  const std::vector<int>& counts_;
+  const std::vector<double>& counts_;
   const std::vector<std::string>& target_names_;
   const std::vector<double>& eff_lens_;
   const WeightMap& weight_map_;

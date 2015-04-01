@@ -147,7 +147,8 @@ void MinCollector::loadCounts(ProgramOptions& opt) {
     std::string line;
     while (getline(in, line)) {
       std::stringstream ss(line);
-      int j,c;
+      int j;
+      double c;
       ss >> j;
       ss >> c;
       if (j != i) {
@@ -173,7 +174,7 @@ void MinCollector::loadCounts(ProgramOptions& opt) {
 }
 
 double get_mean_frag_len(const MinCollector& mc) {
-  auto total_counts = 0;
+  auto total_counts = 0.0;
   double total_mass = 0.0;
 
   for ( size_t i = 0 ; i < mc.flens.size(); ++i ) {

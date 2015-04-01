@@ -13,7 +13,7 @@ class Bootstrap {
     // - target_names
     // - eff_lens
     public:
-        Bootstrap(const std::vector<int>& true_counts,
+        Bootstrap(const std::vector<double>& true_counts,
                 const EcMap& ecmap,
                 const std::vector<std::string>& target_names,
                 const std::vector<double>& eff_lens,

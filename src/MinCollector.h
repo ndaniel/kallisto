@@ -37,7 +37,7 @@ struct MinCollector {
   void loadCounts(ProgramOptions& opt);
 
   KmerIndex& index;
-  std::vector<int> counts;
+  std::vector<double> counts;
   std::vector<int> flens;
   int min_range;
   int k;

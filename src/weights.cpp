@@ -28,7 +28,7 @@ std::vector<double> calc_eff_lens(const std::vector<int>& lengths, double mean)
 }
 
 WeightMap calc_weights(
-  const std::vector<int>& counts,
+  const std::vector<double>& counts,
   const EcMap& ecmap,
   const std::vector<double>& eff_lens)
 {
